@@ -5,7 +5,9 @@ const URL =
 
 const cardWrapperEl = document.querySelector('.card-wrapper');
 const cardTemplate = document.getElementById('card-template');
-const cardCategoryTemplate = document.getElementById('card-category-template');
+const cardResultTemplate = document.getElementById('card-result-template');
+const cardCategoryTemplate = document.getElementById('card-data-item-template');
+const cardSummaryTemplate = document.getElementById('card-summary-template');
 const loadingEl = document.querySelector('.loading');
 
 const removeLoading = () => {
@@ -30,10 +32,14 @@ const renderCardContent = (data) => {
 
 	const cardTemplateNode = document.importNode(cardTemplate.content, true);
 	const cardEl = cardTemplateNode.querySelector('.card');
-	const cardResultEl = cardEl.querySelector('.card__result');
-	const cardSummaryEl = cardEl.querySelector('.card__summary');
 
-	/* card result */
+	/* [card result] */
+	const cardResultTemplateNode = document.importNode(
+		cardResultTemplate.content,
+		true
+	);
+	const cardResultEl = cardResultTemplateNode.querySelector('.card__result');
+
 	const cardResultTitleEl = cardResultEl.querySelector('.card__title');
 	cardResultTitleEl.textContent = resultTitle;
 
@@ -60,7 +66,14 @@ const renderCardContent = (data) => {
 	);
 	cardResultDescriptionContentEl.textContent = resultChart.description;
 
-	/* card summary */
+	/* [card summary] */
+	const cardSummaryTemplateNode = document.importNode(
+		cardSummaryTemplate.content,
+		true
+	);
+	const cardSummaryEl =
+		cardSummaryTemplateNode.querySelector('.card__summary');
+
 	const cardSummaryTitleEl = cardSummaryEl.querySelector('.card__title');
 	cardSummaryTitleEl.textContent = summaryTitle;
 
@@ -96,7 +109,10 @@ const renderCardContent = (data) => {
 		cardSummaryCategoriesEl.appendChild(cardCategoryTemplateNode);
 	}
 
+	/* [init] */
 	removeLoading();
+	cardEl.appendChild(cardResultTemplateNode);
+	cardEl.appendChild(cardSummaryTemplateNode);
 	cardWrapperEl.appendChild(cardTemplateNode);
 };
 
